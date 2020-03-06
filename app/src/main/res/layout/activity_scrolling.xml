@@ -24,13 +24,16 @@
             android:onClick="onSearchButtonPressed"
             android:orientation="horizontal">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/editWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/search_area_margin"
                 android:layout_weight="3"
                 android:ems="10"
                 android:inputType="textWebEditText|text"
+                android:label="editWord"
+                android:completionThreshold="1"
                 android:text="" />
 
             <Button
@@ -39,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onSearchButtonPressed"
-                android:text="Search" />
+                android:layout_marginEnd="@dimen/search_area_margin"
+                android:text="@string/search" />
 
         </LinearLayout>
 

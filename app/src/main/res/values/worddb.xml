@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="word_candidates">
-        <item>text_string</item>
 		<item>a(1)</item>
 		<item>a(2)</item>
 		<item>a(3)</item>
@@ -18284,14 +18283,14 @@
 		<item>landslides</item>
 		<item>landsman</item>
 		<item>landsman(2)</item>
-		<item>Landsmål</item>
+		<item>"Landsmål"</item>
 		<item>Landtag</item>
 		<item>lane</item>
 		<item>langlauf</item>
 		<item>language</item>
 		<item>languages</item>
-		<item>langue d'oc</item>
-		<item>langue d'oïl</item>
+		<item>"langue d'oc"</item>
+		<item>"langue d'oïl"</item>
 		<item>Languedoc</item>
 		<item>languet</item>
 		<item>languets</item>
@@ -20753,7 +20752,7 @@
 		<item>motel</item>
 		<item>motes</item>
 		<item>moth</item>
-		<item>Mother Carey's chicken</item>
+		<item>"Mother Carey's chicken"</item>
 		<item>mother(1)</item>
 		<item>mother(2)</item>
 		<item>mothers</item>
@@ -24424,7 +24423,7 @@
 		<item>pouch</item>
 		<item>pouches</item>
 		<item>poulard</item>
-		<item>poulter's measure</item>
+		<item>"poulter's measure"</item>
 		<item>poultice</item>
 		<item>poultices</item>
 		<item>poultries</item>

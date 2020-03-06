@@ -3,13 +3,14 @@ package com.ompugao.englishetymology
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.ompugao.englishetymology.R.id
@@ -26,10 +27,17 @@ class ScrollingActivity : AppCompatActivity() {
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
 
+        val editor = findViewById<AutoCompleteTextView>(id.editWord)
+        val word_candidates = resources.getStringArray(R.array.word_candidates)
+        val adapter = ArrayAdapter<String>(
+            this, android.R.layout.simple_dropdown_item_1line, word_candidates
+        )
+        editor.setAdapter(adapter)
+
+
         val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
         if (!text.isNullOrEmpty()) {
             val textstr = text.toString()
-            val editor = findViewById<EditText>(id.editWord)
             editor.setText(textstr)
             showWordOnWebView(textstr)
         }
