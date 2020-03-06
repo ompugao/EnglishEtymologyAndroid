@@ -32,8 +32,6 @@ class ScrollingActivity : AppCompatActivity() {
             val editor = findViewById<EditText>(id.editWord)
             editor.setText(textstr)
             showWordOnWebView(textstr)
-        } else {
-            webView.loadUrl("https://google.com/")
         }
     }
 
