@@ -1,6 +1,7 @@
 package com.ompugao.englishetymology
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.ompugao.englishetymology.R.id
 import kotlinx.android.synthetic.main.activity_scrolling.*
@@ -24,7 +26,19 @@ class ScrollingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_scrolling)
         setSupportActionBar(toolbar)
         val webView = findViewById<WebView>(id.webview)
-        webView.webViewClient = WebViewClient()
+        //webView.webViewClient = WebViewClient()
+        val progressBar = findViewById<ProgressBar>(id.webViewProgressBar)
+        webView.webViewClient = object: WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                progressBar.visibility = View.VISIBLE
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar.visibility = View.GONE
+            }
+        }
         webView.settings.javaScriptEnabled = true
 
         val editor = findViewById<AutoCompleteTextView>(id.editWord)
