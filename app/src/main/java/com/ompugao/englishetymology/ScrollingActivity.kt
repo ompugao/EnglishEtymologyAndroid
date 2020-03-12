@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.WebSettings
+import android.webkit.WebSettings.LOAD_DEFAULT
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
@@ -40,6 +42,9 @@ class ScrollingActivity : AppCompatActivity() {
             }
         }
         webView.settings.javaScriptEnabled = true
+        webView.settings.setAppCachePath(this.cacheDir.absolutePath)
+        webView.settings.setAppCacheEnabled(true)
+        webView.settings.cacheMode = LOAD_DEFAULT
 
         val editor = findViewById<AutoCompleteTextView>(id.editWord)
         val word_candidates = resources.getStringArray(R.array.word_candidates)
