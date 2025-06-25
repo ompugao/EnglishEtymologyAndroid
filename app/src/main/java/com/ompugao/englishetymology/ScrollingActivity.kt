@@ -8,14 +8,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebSettings
 import android.webkit.WebSettings.LOAD_DEFAULT
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.ProgressBar
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.ompugao.englishetymology.R.id
 import com.ompugao.englishetymology.databinding.ActivityScrollingBinding
@@ -29,9 +26,9 @@ class ScrollingActivity : AppCompatActivity() {
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        val webView = findViewById<WebView>(id.webview)
-        //webView.webViewClient = WebViewClient()
-        val progressBar = findViewById<ProgressBar>(id.webViewProgressBar)
+        
+        val webView = binding.webview
+        val progressBar = binding.webViewProgressBar
         webView.webViewClient = object: WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -46,7 +43,7 @@ class ScrollingActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.settings.cacheMode = LOAD_DEFAULT
 
-        val editor = findViewById<AutoCompleteTextView>(id.editWord)
+        val editor = binding.editWord
         val word_candidates = resources.getStringArray(R.array.word_candidates)
         val adapter = ArrayAdapter<String>(
             this, android.R.layout.simple_dropdown_item_1line, word_candidates
@@ -60,6 +57,8 @@ class ScrollingActivity : AppCompatActivity() {
             editor.setText(textstr)
             showWordOnWebView(textstr)
         }
+        
+        setupBackPressedCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,24 +78,30 @@ class ScrollingActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        val webView: WebView = findViewById(id.webview)
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
+    private fun setupBackPressedCallback() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val webView = binding.webview
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
         }
+        onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onSearchButtonPressed(view: View) {
-        val editor = findViewById<EditText>(id.editWord)
-        val text = editor.text.toString()
+        val text = binding.editWord.text.toString()
         showWordOnWebView(text)
     }
 
-    fun showWordOnWebView(text: String) {
-        val webView = findViewById<WebView>(id.webview)
-        webView.loadUrl("http://hidic.u-aizu.ac.jp/result.php?tableName=tango&word="+ Uri.encode(text))
-        Log.d("showing word: %s", text)
+    private fun showWordOnWebView(text: String) {
+        val webView = binding.webview
+        webView.loadUrl("http://hidic.u-aizu.ac.jp/result.php?tableName=tango&word=" + Uri.encode(text))
+        Log.d("ScrollingActivity", "showing word: $text")
     }
 }
