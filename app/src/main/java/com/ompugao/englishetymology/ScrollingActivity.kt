@@ -18,15 +18,17 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.ompugao.englishetymology.R.id
-import kotlinx.android.synthetic.main.activity_scrolling.*
+import com.ompugao.englishetymology.databinding.ActivityScrollingBinding
 
 
 class ScrollingActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityScrollingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scrolling)
-        setSupportActionBar(toolbar)
+        binding = ActivityScrollingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         val webView = findViewById<WebView>(id.webview)
         //webView.webViewClient = WebViewClient()
         val progressBar = findViewById<ProgressBar>(id.webViewProgressBar)
@@ -42,8 +44,6 @@ class ScrollingActivity : AppCompatActivity() {
             }
         }
         webView.settings.javaScriptEnabled = true
-        webView.settings.setAppCachePath(this.cacheDir.absolutePath)
-        webView.settings.setAppCacheEnabled(true)
         webView.settings.cacheMode = LOAD_DEFAULT
 
         val editor = findViewById<AutoCompleteTextView>(id.editWord)
